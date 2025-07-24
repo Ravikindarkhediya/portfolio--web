@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:modern_portfolio/navigation/section_container.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-
 import '../core/theme/theme_controller.dart';
-import 'app_pages.dart';
-import 'navigation_controller.dart';
+import '../features/home/home_screen.dart';
+import '../features/about/about_screen.dart';
+import '../features/projects/projects_screen.dart';
+import '../features/skills/skills_screen.dart';
+import '../features/contact/contact_screen.dart';
+
+
+
+// Section keys
+final homeKey = GlobalKey();
+final aboutKey = GlobalKey();
+final projectsKey = GlobalKey();
+final skillsKey = GlobalKey();
+final contactKey = GlobalKey();
 
 class MainLayout extends StatelessWidget {
   MainLayout({super.key});
 
-  final NavigationController navController = Get.put(NavigationController());
   final ThemeController themeController = Get.find<ThemeController>();
+
+  final ScrollController scrollController = ScrollController();
 
   final List<String> _pageTitles = [
     "Home",
@@ -37,48 +50,47 @@ class MainLayout extends StatelessWidget {
     Icons.mail,
   ];
 
+  void scrollToSection(GlobalKey key) {
+    final context = key.currentContext;
+    if (context != null) {
+      Scrollable.ensureVisible(
+        context,
+        duration: 500.ms,
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final bool isSmallScreen = ResponsiveBreakpoints.of(context).isMobile ||
+    final bool isSmallScreen =
+        ResponsiveBreakpoints.of(context).isMobile ||
         ResponsiveBreakpoints.of(context).isTablet;
 
     return Scaffold(
       appBar: AppBar(
-        title: Obx(
-              () => Text(
-            _pageTitles[navController.selectedIndex.value],
-          ).animate().fadeIn(duration: 300.ms).slideX(begin: 0.2, end: 0),
-        ),
+        title: Text(
+          "My Portfolio",
+        ).animate().fadeIn(duration: 300.ms).slideX(begin: 0.2),
         actions: [
           if (!isSmallScreen)
-           Obx(()=> Row(
-             children: List.generate(
-               _pageTitles.length,
-                   (i) => TextButton.icon(
-                 onPressed: () => navController.changePage(i),
-                 label: Text(
-                   _pageTitles[i],
-                   style: TextStyle(
-                     color: navController.selectedIndex.value == i
-                         ? Colors.white
-                         : Colors.black,
-                   ),
-                 ),
-                 icon: Icon(
-                   navController.selectedIndex.value == i
-                       ? _pageSelectedIcons[i]
-                       : _pageIcons[i],
-                   color: navController.selectedIndex.value == i
-                       ? Colors.white
-                       : Colors.black,
-                 ),
-
-               ),
-             ),
-           ),),
+            Row(
+              children: List.generate(_pageTitles.length, (i) {
+                final key =
+                    [homeKey, aboutKey, projectsKey, skillsKey, contactKey][i];
+                return TextButton.icon(
+                  onPressed: () => scrollToSection(key),
+                  icon: Icon(_pageIcons[i], color: Colors.black),
+                  label: Text(
+                    _pageTitles[i],
+                    style: TextStyle(color: Colors.black),
+                  ),
+                );
+              }),
+            ),
           IconButton(
             icon: Obx(
-                  () => Icon(
+              () => Icon(
                 themeController.isDarkMode.value
                     ? Icons.light_mode
                     : Icons.dark_mode,
@@ -90,14 +102,24 @@ class MainLayout extends StatelessWidget {
         ],
       ),
       drawer: isSmallScreen ? _buildDrawer(context) : null,
-      body: Obx(
-            () => AppPages.mainScreens[navController.selectedIndex.value].page(),
+      body: SingleChildScrollView(
+        controller: scrollController,
+        child: Column(
+          children: [
+            SectionContainer(key: homeKey, child: const HomeScreen()),
+            SectionContainer(key: aboutKey, child: const AboutScreen()),
+            SectionContainer(key: projectsKey, child: ProjectsScreen()),
+            SectionContainer(key: skillsKey, child: const SkillsScreen()),
+            SectionContainer(key: contactKey, child: ContactScreen()),
+          ],
+        ),
       ),
-      bottomNavigationBar: isSmallScreen ? _buildBottomNavigationBar() : null,
     );
   }
 
   Widget _buildDrawer(BuildContext context) {
+    final sectionKeys = [homeKey, aboutKey, projectsKey, skillsKey, contactKey];
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -106,64 +128,22 @@ class MainLayout extends StatelessWidget {
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),
             child: Text(
               'Menu',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Colors.white),
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(color: Colors.white),
             ),
           ),
           for (int i = 0; i < _pageTitles.length; i++)
-            Obx(
-                  () => ListTile(
-                leading: Icon(
-                  navController.selectedIndex.value == i
-                      ? _pageSelectedIcons[i]
-                      : _pageIcons[i],
-                  color: navController.selectedIndex.value == i
-                      ? Theme.of(context).colorScheme.secondary
-                      : (themeController.isDarkMode.value
-                      ? Colors.white70
-                      : Colors.black54),
-                ),
-                title: Text(
-                  _pageTitles[i],
-                  style: TextStyle(
-                    color: themeController.isDarkMode.value
-                        ? Colors.white
-                        : Colors.black,
-                  ),
-                ),
-                selected: navController.selectedIndex.value == i,
-                selectedTileColor: Theme.of(context)
-                    .colorScheme
-                    .secondary
-                    .withOpacity(0.2),
-                onTap: () {
-                  navController.changePage(i);
-                  Navigator.pop(context); // Close drawer
-                },
-              ),
+            ListTile(
+              leading: Icon(_pageIcons[i]),
+              title: Text(_pageTitles[i]),
+              onTap: () {
+                scrollToSection(sectionKeys[i]);
+                Navigator.pop(context); // close drawer
+              },
             ),
         ],
       ),
     );
-  }
-
-  Widget _buildBottomNavigationBar() {
-    return Obx(
-          () => BottomNavigationBar(
-        currentIndex: navController.selectedIndex.value,
-        onTap: navController.changePage,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          for (int i = 0; i < _pageTitles.length; i++)
-            BottomNavigationBarItem(
-              icon: Icon(_pageIcons[i]),
-              activeIcon: Icon(_pageSelectedIcons[i]),
-              label: _pageTitles[i],
-            ),
-        ],
-      ),
-    ).animate().slideY(begin: 1, end: 0, duration: 300.ms);
   }
 }

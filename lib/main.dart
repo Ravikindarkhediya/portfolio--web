@@ -5,13 +5,19 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_controller.dart';
-import 'navigation/app_pages.dart'; // Import for .adapter
+import 'navigation/app_pages.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
-  // Initialize GetX Theme Controller
+
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Get.put(ThemeController());
-  Animate.restartOnHotReload = true; // Optional: for easier animation debugging
-
+  Animate.restartOnHotReload = true;
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -22,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeController themeController = Get.find();
 
-    return Obx( // Obx is used to react to changes in themeController.isDarkMode
+    return Obx(
           () => GetMaterialApp(
         title: 'My Portfolio',
         debugShowCheckedModeBanner: false,

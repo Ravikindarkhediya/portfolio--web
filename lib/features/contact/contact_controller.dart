@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +11,7 @@ class ContactController extends GetxController {
   final messageController = TextEditingController();
 
   var isLoading = false.obs;
-  var submissionStatus = ''.obs; // 'success', 'error', or ''
+  var submissionStatus = ''.obs;
 
   @override
   void onClose() {
@@ -48,44 +51,51 @@ class ContactController extends GetxController {
   Future<void> submitForm() async {
     if (formKey.currentState!.validate()) {
       isLoading.value = true;
-      submissionStatus.value = '';
 
-      // Simulate API call
-      await Future.delayed(const Duration(seconds: 2));
+      const serviceId = 'service_csjza2u';
+      const templateId = 'template_g6dgt4p';
+      const publicKey = 'BgMBtZMXrFk7_pkpd';
 
-      // In a real app, you'd send this data to a backend (e.g., Firebase Functions, Formspree)
-      debugPrint('Name: ${nameController.text}');
-      debugPrint('Email: ${emailController.text}');
-      debugPrint('Message: ${messageController.text}');
+      const url = 'https://api.emailjs.com/api/v1.0/email/send';
 
-      // Simulate success/failure
-      bool success = true; // Change to false to test error
-
-      if (success) {
-        submissionStatus.value = 'success';
-        Get.snackbar(
-          'Success!',
-          'Your message has been sent.',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
+      try {
+        final response = await http.post(
+          Uri.parse(url),
+          headers: {
+            'origin': 'http://localhost', // for Flutter Web
+            'Content-Type': 'application/json',
+          },
+          body: json.encode({
+            'service_id': serviceId,
+            'template_id': templateId,
+            'user_id': publicKey,
+            'template_params': {
+              'name': nameController.text,
+              'email': emailController.text,
+              'message': messageController.text,
+            },
+          }),
         );
-        // Optionally clear fields
-        nameController.clear();
-        emailController.clear();
-        messageController.clear();
-        formKey.currentState!.reset(); // Resets validation state
-      } else {
-        submissionStatus.value = 'error';
-        Get.snackbar(
-          'Error!',
-          'Failed to send message. Please try again.',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
+
+        isLoading.value = false;
+
+        if (response.statusCode == 200) {
+          Get.snackbar("Success", "Message sent!",
+              backgroundColor: Colors.green, colorText: Colors.white);
+
+          nameController.clear();
+          emailController.clear();
+          messageController.clear();
+          formKey.currentState!.reset();
+        } else {
+          Get.snackbar("Error", "Failed to send. Try again.",
+              backgroundColor: Colors.red, colorText: Colors.white);
+        }
+      } catch (e) {
+        isLoading.value = false;
+        Get.snackbar("Error", "An error occurred.",
+            backgroundColor: Colors.red, colorText: Colors.white);
       }
-      isLoading.value = false;
     }
   }
 }

@@ -7,19 +7,11 @@ class SkillItem extends StatelessWidget {
   final String name;
   final IconData icon;
 
-
-  const SkillItem({
-    super.key,
-    required this.name,
-    required this.icon,
-
-  });
+  const SkillItem({super.key, required this.name, required this.icon});
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme
-        .of(context)
-        .textTheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return RoundedCard(
       padding: const EdgeInsets.symmetric(
@@ -29,25 +21,19 @@ class SkillItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Icon(icon, size: 24, color: Theme
-              .of(context)
-              .colorScheme
-              .secondary),
+          Icon(icon, size: 24, color: Theme.of(context).colorScheme.secondary),
           const SizedBox(width: AppConstants.defaultPadding / 2),
           Expanded(
             child: Text(
               name,
-              overflow: TextOverflow.ellipsis, // Correct location
+              overflow: TextOverflow.ellipsis,
               style: textTheme.titleMedium!.copyWith(
-                color: Theme
-                    .of(context)
-                    .colorScheme
-                    .secondary,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
-
         ],
       ),
     );
-  }}
+  }
+}
