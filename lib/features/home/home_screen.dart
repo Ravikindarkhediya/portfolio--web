@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: AppConstants.defaultPadding * 1.5),
               Text(
-                "Welcome to my personal portfolio. Explore my work and get in touch!",
+                'Welcome to my personal portfolio. Explore my work and get in touch!',
                 textAlign: TextAlign.center,
                 style: textTheme.bodyMedium?.copyWith(fontSize: 16, height: 1.5),
               ).animate().fadeIn(delay: 1200.ms),

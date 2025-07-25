@@ -12,12 +12,11 @@ import '../features/contact/contact_screen.dart';
 
 
 
-// Section keys
-final homeKey = GlobalKey();
-final aboutKey = GlobalKey();
-final projectsKey = GlobalKey();
-final skillsKey = GlobalKey();
-final contactKey = GlobalKey();
+final GlobalKey homeKey = GlobalKey();
+final GlobalKey aboutKey = GlobalKey();
+final GlobalKey projectsKey = GlobalKey();
+final GlobalKey skillsKey = GlobalKey();
+final GlobalKey contactKey = GlobalKey();
 
 class MainLayout extends StatelessWidget {
   MainLayout({super.key});
@@ -27,11 +26,11 @@ class MainLayout extends StatelessWidget {
   final ScrollController scrollController = ScrollController();
 
   final List<String> _pageTitles = [
-    "Home",
-    "About",
-    "Projects",
-    "Skills",
-    "Contact",
+    'Home',
+    'About',
+    'Projects',
+    'Skills',
+    'Contact',
   ];
 
   final List<IconData> _pageIcons = [
@@ -69,8 +68,8 @@ class MainLayout extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "My Portfolio",
+        title: const Text(
+          'My Portfolio',
         ).animate().fadeIn(duration: 300.ms).slideX(begin: 0.2),
         actions: [
           if (!isSmallScreen)
@@ -83,7 +82,7 @@ class MainLayout extends StatelessWidget {
                   icon: Icon(_pageIcons[i], color: Colors.black),
                   label: Text(
                     _pageTitles[i],
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.black),
                   ),
                 );
               }),

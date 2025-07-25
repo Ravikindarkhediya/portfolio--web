@@ -5,8 +5,7 @@ class AppConstants {
   static const double sectionSpacing = 40.0;
 
   // URLs
-  static const String githubUrl = "https://github.com/Ravikindarkhediya?tab=repositories";
-  static const String linkedinUrl = "https://www.linkedin.com/in/ravi-kindarkhediya-b85614268/";
-  // static const String twitterUrl = "https://twitter.com/your_handle";
-// Add more social links as needed
+  static const String githubUrl = 'https://github.com/Ravikindarkhediya?tab=repositories';
+  static const String linkedinUrl = 'https://www.linkedin.com/in/ravi-kindarkhediya-b85614268/';
+
 }

@@ -15,21 +15,21 @@ class AboutScreen extends StatelessWidget {
 
     final List<Map<String, String>> experiences = [
       {
-        "role": "Flutter Developer",
-        "company": "CreativeInfoWay",
+        'role': 'Flutter Developer',
+        'company': "CreativeInfoWay",
         "duration": "May 2025 - Ongoing",
         "description":
-            "Developed and maintained features for various client projects using Flutter and Dart. Collaborated with UI/UX designers.",
+            'Developed and maintained features for various client projects using Flutter and Dart. Collaborated with UI/UX designers.',
       },
     ];
 
     final List<Map<String, String>> educations = [
       {
-        "degree": "Bachelor Computer of Science",
-        "institution": "Bhakta Kavi Narsinh Mehta University",
-        "year": "2024",
-        "details":
-            "Developed applications and websites while learning various programming languages.",
+        'degree': 'Bachelor Computer of Science',
+        'institution': 'Bhakta Kavi Narsinh Mehta University',
+        'year': '2024',
+        'details':
+            'Developed applications and websites while learning various programming languages.',
       },
     ];
 
@@ -42,7 +42,7 @@ class AboutScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "About Me",
+                'About Me',
                 style: textTheme.displayLarge?.copyWith(fontSize: 32),
               ).animate().fadeIn(delay: 200.ms).slideX(begin: -0.2),
               const SizedBox(height: AppConstants.defaultPadding),
@@ -58,13 +58,13 @@ class AboutScreen extends StatelessWidget {
 
               const SizedBox(height: AppConstants.sectionSpacing),
               Text(
-                "Experience",
+                'Experience',
                 style: textTheme.displayLarge?.copyWith(fontSize: 28),
               ).animate().fadeIn(delay: 600.ms).slideX(begin: -0.2),
               const SizedBox(height: AppConstants.defaultPadding / 2),
               ...experiences.asMap().entries.map((entry) {
-                int idx = entry.key;
-                Map<String, String> exp = entry.value;
+                final int idx = entry.key;
+                final Map<String, String> exp = entry.value;
                 return ExperienceTile(
                       role: exp['role']!,
                       company: exp['company']!,
@@ -83,8 +83,8 @@ class AboutScreen extends StatelessWidget {
               ).animate().fadeIn(delay: 900.ms).slideX(begin: -0.2),
               const SizedBox(height: AppConstants.defaultPadding / 2),
               ...educations.asMap().entries.map((entry) {
-                int idx = entry.key;
-                Map<String, String> edu = entry.value;
+                final int idx = entry.key;
+                final Map<String, String> edu = entry.value;
                 return EducationTile(
                       degree: edu['degree']!,
                       institution: edu['institution']!,

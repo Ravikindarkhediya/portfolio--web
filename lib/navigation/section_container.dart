@@ -8,7 +8,6 @@ class SectionContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      key: key,
       width: double.infinity,
       height: MediaQuery.of(context).size.height,
       child: child,

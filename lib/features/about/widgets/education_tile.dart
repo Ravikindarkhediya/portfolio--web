@@ -26,7 +26,7 @@ class EducationTile extends StatelessWidget {
       child: ExpansionTile(
         tilePadding: EdgeInsets.zero,
         title: Text(degree, style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
-        subtitle: Text("$institution | $year", style: textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic)),
+        subtitle: Text('$institution | $year', style: textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic)),
         children: <Widget>[
           if (details != null && details!.isNotEmpty)
             Padding(

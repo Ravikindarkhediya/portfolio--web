@@ -24,11 +24,11 @@ class ContactScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Get In Touch", style: textTheme.displayLarge?.copyWith(fontSize: 32))
+              Text('Get In Touch', style: textTheme.displayLarge?.copyWith(fontSize: 32))
                   .animate().fadeIn(delay: 200.ms).slideX(begin: -0.2),
               const SizedBox(height: AppConstants.defaultPadding / 2),
               Text(
-                "Have a project in mind or just want to say hi? Feel free to reach out!",
+                'Have a project in mind or just want to say hi? Feel free to reach out!',
                 style: textTheme.bodyMedium,
               ).animate().fadeIn(delay: 300.ms),
               const SizedBox(height: AppConstants.defaultPadding * 1.5),
@@ -46,7 +46,7 @@ class ContactScreen extends StatelessWidget {
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                           prefixIcon: Icon(Icons.person_outline, color: Theme.of(context).colorScheme.secondary),
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                         ),
                         validator: controller.validateName,
                       ).animate().fadeIn(delay: 400.ms).slideX(begin: 0.2),
@@ -59,7 +59,7 @@ class ContactScreen extends StatelessWidget {
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                           prefixIcon: Icon(Icons.email_outlined, color: Theme.of(context).colorScheme.secondary),
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                         ),
                         keyboardType: TextInputType.emailAddress,
                         validator: controller.validateEmail,
@@ -73,7 +73,7 @@ class ContactScreen extends StatelessWidget {
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                           prefixIcon: Icon(Icons.message_outlined, color: Theme.of(context).colorScheme.secondary),
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                           alignLabelWithHint: true,
                         ),
                         maxLines: 5,
@@ -98,7 +98,7 @@ class ContactScreen extends StatelessWidget {
               const SizedBox(height: AppConstants.sectionSpacing),
               Center(
                 child: Text(
-                  "Or connect with me on social media:",
+                  'Or connect with me on social media:',
                   style: textTheme.titleMedium,
                 ).animate().fadeIn(delay: 800.ms),
               ),

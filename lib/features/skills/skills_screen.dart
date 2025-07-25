@@ -31,7 +31,7 @@ class SkillsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("My Skills", style: textTheme.displayLarge?.copyWith(fontSize: 32))
+              Text('My Skills', style: textTheme.displayLarge?.copyWith(fontSize: 32))
                   .animate().fadeIn(delay: 200.ms).slideX(begin: -0.2),
               const SizedBox(height: AppConstants.defaultPadding),
               GridView.builder(

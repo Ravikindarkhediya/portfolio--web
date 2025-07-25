@@ -6,8 +6,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_controller.dart';
 import 'navigation/app_pages.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 
 
 
@@ -15,9 +13,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(ThemeController());
   Animate.restartOnHotReload = true;
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   runApp(const MyApp());
 }
 

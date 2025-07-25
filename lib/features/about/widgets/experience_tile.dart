@@ -26,7 +26,7 @@ class ExperienceTile extends StatelessWidget {
       child: ExpansionTile(
         tilePadding: EdgeInsets.zero,
         title: Text(role, style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
-        subtitle: Text("$company | $duration", style: textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic)),
+        subtitle: Text('$company | $duration', style: textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic)),
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0, bottom: 8.0),

@@ -78,7 +78,7 @@ class ProjectCard extends StatelessWidget {
                       ),
                       SizedBox(height: spacing),
                       Text(
-                        "Tech Stack:",
+                        'Tech Stack:',
                         style: textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),

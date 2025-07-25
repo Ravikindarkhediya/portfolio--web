@@ -26,7 +26,7 @@ class ProjectsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("My Projects", style: textTheme.displayLarge?.copyWith(fontSize: 32))
+              Text('My Projects', style: textTheme.displayLarge?.copyWith(fontSize: 32))
                   .animate().fadeIn(delay: 200.ms).slideX(begin: -0.2),
               const SizedBox(height: AppConstants.defaultPadding),
               _buildFilterChips(context), // Pass context if needed by Theme.of
@@ -35,7 +35,7 @@ class ProjectsScreen extends StatelessWidget {
                 if (controller.filteredProjects.isEmpty) {
                   return Center(
                     child: Text(
-                      "No projects found for the selected filter.",
+                      'No projects found for the selected filter.',
                       style: textTheme.bodyMedium,
                     ).paddingOnly(top: 50),
                   );
@@ -99,7 +99,7 @@ class ProjectsScreen extends StatelessWidget {
                 ? (Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white) // Ensure contrast
                 : null,
           ),
-        )).toList(),
+        )),
       ],
     ));
   }
