@@ -12,6 +12,7 @@ import '../../core/constants/app_constants.dart';
 
 class ProjectsScreen extends StatelessWidget {
   ProjectsScreen({super.key});
+
   final ProjectsController controller = Get.put(ProjectsController());
 
   @override
@@ -22,7 +23,7 @@ class ProjectsScreen extends StatelessWidget {
       padding: const EdgeInsets.all(AppConstants.defaultPadding),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1200),
+          constraints: const BoxConstraints(maxWidth: 1100),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

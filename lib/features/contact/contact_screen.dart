@@ -20,12 +20,14 @@ class ContactScreen extends StatelessWidget {
       padding: const EdgeInsets.all(AppConstants.defaultPadding),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600),
+          constraints: const BoxConstraints(maxWidth: 1100),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Get In Touch', style: textTheme.displayLarge?.copyWith(fontSize: 32))
-                  .animate().fadeIn(delay: 200.ms).slideX(begin: -0.2),
+              Text(
+                'Get In Touch',
+                style: textTheme.displayLarge?.copyWith(fontSize: 32),
+              ).animate().fadeIn(delay: 200.ms).slideX(begin: -0.2),
               const SizedBox(height: AppConstants.defaultPadding / 2),
               Text(
                 'Have a project in mind or just want to say hi? Feel free to reach out!',
@@ -45,7 +47,10 @@ class ContactScreen extends StatelessWidget {
                           labelStyle: textTheme.titleMedium!.copyWith(
                             color: Theme.of(context).colorScheme.secondary,
                           ),
-                          prefixIcon: Icon(Icons.person_outline, color: Theme.of(context).colorScheme.secondary),
+                          prefixIcon: Icon(
+                            Icons.person_outline,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                           border: const OutlineInputBorder(),
                         ),
                         validator: controller.validateName,
@@ -53,12 +58,15 @@ class ContactScreen extends StatelessWidget {
                       const SizedBox(height: AppConstants.defaultPadding),
                       TextFormField(
                         controller: controller.emailController,
-                        decoration:  InputDecoration(
+                        decoration: InputDecoration(
                           labelText: 'Your Email',
                           labelStyle: textTheme.titleMedium!.copyWith(
                             color: Theme.of(context).colorScheme.secondary,
                           ),
-                          prefixIcon: Icon(Icons.email_outlined, color: Theme.of(context).colorScheme.secondary),
+                          prefixIcon: Icon(
+                            Icons.email_outlined,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                           border: const OutlineInputBorder(),
                         ),
                         keyboardType: TextInputType.emailAddress,
@@ -72,7 +80,10 @@ class ContactScreen extends StatelessWidget {
                           labelStyle: textTheme.titleMedium!.copyWith(
                             color: Theme.of(context).colorScheme.secondary,
                           ),
-                          prefixIcon: Icon(Icons.message_outlined, color: Theme.of(context).colorScheme.secondary),
+                          prefixIcon: Icon(
+                            Icons.message_outlined,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                           border: const OutlineInputBorder(),
                           alignLabelWithHint: true,
                         ),
@@ -80,17 +91,68 @@ class ContactScreen extends StatelessWidget {
                         validator: controller.validateMessage,
                       ).animate().fadeIn(delay: 600.ms).slideX(begin: 0.2),
                       const SizedBox(height: AppConstants.defaultPadding * 1.5),
-                      Obx(() => controller.isLoading.value
-                          ? const Center(child: CircularProgressIndicator())
-                          : ElevatedButton.icon(
-                        icon: const Icon(Icons.send_outlined),
-                        label: const Text('Send Message'),
-                        onPressed: controller.submitForm,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: AppConstants.defaultPadding * 0.9),
-                        ),
-                      )
-                      ).animate().fadeIn(delay: 700.ms),
+                      Obx(
+                        () =>
+                            controller.isLoading.value
+                                ? const Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                                : Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: MouseRegion(
+                                    onEnter:
+                                        (_) =>
+                                            controller.isHoveredSubmit.value =
+                                                true,
+                                    onExit:
+                                        (_) =>
+                                            controller.isHoveredSubmit.value =
+                                                false,
+                                    child: Obx(
+                                      () => ElevatedButton.icon(
+                                        icon: const Icon(Icons.send_outlined),
+                                        label: const Text('Send Message'),
+                                        onPressed: controller.submitForm,
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              controller.isHoveredSubmit.value
+                                                  ? Colors.white
+                                                  : Theme.of(
+                                                    context,
+                                                  ).colorScheme.primary,
+                                          foregroundColor:
+                                              controller.isHoveredSubmit.value
+                                                  ? Theme.of(
+                                                    context,
+                                                  ).colorScheme.primary
+                                                  : Colors.white,
+                                          elevation:
+                                              controller.isHoveredSubmit.value
+                                                  ? 6
+                                                  : 2,
+                                          side: BorderSide(
+                                            color:
+                                                Theme.of(
+                                                  context,
+                                                ).colorScheme.primary,
+                                            width: 2,
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal:
+                                                AppConstants.defaultPadding * 2,
+                                            vertical: 16,
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                      ).animate().fadeIn(delay: 1000.ms),
                     ],
                   ),
                 ),
@@ -103,8 +165,10 @@ class ContactScreen extends StatelessWidget {
                 ).animate().fadeIn(delay: 800.ms),
               ),
               const SizedBox(height: AppConstants.defaultPadding),
-              const SocialMediaButtons(alignment: MainAxisAlignment.center, iconSize: 30)
-                  .animate().fadeIn(delay: 900.ms).slideY(begin: 0.5),
+              const SocialMediaButtons(
+                alignment: MainAxisAlignment.center,
+                iconSize: 30,
+              ).animate().fadeIn(delay: 900.ms).slideY(begin: 0.5),
               const SizedBox(height: AppConstants.sectionSpacing),
             ],
           ),

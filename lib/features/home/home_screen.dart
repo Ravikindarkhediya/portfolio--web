@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:get/get.dart';
+
 import '../../core/constants/app_constants.dart';
 import '../../core/constants/app_strings.dart';
 import '../../core/widgets/animated_typing_text.dart';
 import '../../core/widgets/social_media_buttons.dart';
+import 'controller/home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,8 +15,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final controller = Get.put(HomeController());
 
     return SingleChildScrollView(
+      controller: controller.scrollController,
       padding: const EdgeInsets.all(AppConstants.defaultPadding * 1.5),
       child: Center(
         child: ConstrainedBox(
@@ -23,21 +28,39 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: AppConstants.sectionSpacing / 2),
-              CircleAvatar(
-                radius: 80,
-                backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-                child: ClipOval(
-                  child: Image.asset(
-                    'assets/images/man.jpg',
-                    fit: BoxFit.cover,
-                    width: 150,
-                    height: 150,
-                    errorBuilder: (context, error, stackTrace) =>
-                    const Icon(Icons.person, size: 80),
+
+              MouseRegion(
+                onEnter: (_) => controller.onHoverEnter(),
+                onExit: (_) => controller.onHoverExit(),
+                child: Obx(
+                      () => AnimatedScale(
+                    scale: controller.isHovered.value ? 1.4 : 1.0,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOut,
+                    child: CircleAvatar(
+                      radius: 80,
+                      backgroundColor: controller.isHovered.value
+                          ? Colors.transparent
+                          : Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/images/man.jpg',
+                          fit: BoxFit.cover,
+                          width: 150,
+                          height: 150,
+                          errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.person, size: 80),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ).animate().fadeIn(duration: 500.ms).scale(delay: 200.ms),
+              ),
+
+
+
               const SizedBox(height: AppConstants.defaultPadding * 2),
+
               Text(
                 AppStrings.developerName,
                 style: textTheme.displayLarge?.copyWith(
@@ -47,7 +70,10 @@ class HomeScreen extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ).animate().fadeIn(delay: 700.ms).slideY(begin: 0.5, duration: 500.ms),
+
               const SizedBox(height: AppConstants.defaultPadding / 2),
+
+              /// 🔤 Typing Animation
               AnimatedTypingText(
                 texts: AppStrings.animatedTexts,
                 textStyle: textTheme.titleLarge?.copyWith(
@@ -55,16 +81,21 @@ class HomeScreen extends StatelessWidget {
                   color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
+
               const SizedBox(height: AppConstants.defaultPadding * 1.5),
+
               Text(
                 'Welcome to my personal portfolio. Explore my work and get in touch!',
                 textAlign: TextAlign.center,
                 style: textTheme.bodyMedium?.copyWith(fontSize: 16, height: 1.5),
               ).animate().fadeIn(delay: 1200.ms),
+
               const SizedBox(height: AppConstants.defaultPadding * 2),
 
+              /// 🔗 Social Media Icons
               const SocialMediaButtons(iconSize: 28)
                   .animate().fadeIn(delay: 1500.ms),
+
               const SizedBox(height: AppConstants.sectionSpacing),
             ],
           ),

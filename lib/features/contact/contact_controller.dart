@@ -9,7 +9,7 @@ class ContactController extends GetxController {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final messageController = TextEditingController();
-
+  final isHoveredSubmit = false.obs;
   var isLoading = false.obs;
 
   @override

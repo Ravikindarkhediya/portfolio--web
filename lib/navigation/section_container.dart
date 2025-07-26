@@ -9,7 +9,6 @@ class SectionContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height,
       child: child,
     );
   }

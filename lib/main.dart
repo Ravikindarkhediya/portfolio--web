@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:modern_portfolio/features/about/widgets/about_controller.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -14,6 +15,7 @@ Future<void> main() async {
   Get.put(ThemeController());
   Animate.restartOnHotReload = true;
   runApp(const MyApp());
+  Get.put(AboutController());
 }
 
 class MyApp extends StatelessWidget {
