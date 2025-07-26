@@ -18,7 +18,6 @@ class HomeScreen extends StatelessWidget {
     final controller = Get.put(HomeController());
 
     return SingleChildScrollView(
-      controller: controller.scrollController,
       padding: const EdgeInsets.all(AppConstants.defaultPadding * 1.5),
       child: Center(
         child: ConstrainedBox(
