@@ -1,0 +1,41 @@
+name: modern_portfolio
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  get: ^4.6.6
+  http:
+  responsive_framework: ^1.5.1
+  url_launcher: ^6.1.14
+  flutter_animate: ^4.3.0
+  animated_text_kit: ^4.2.2
+  font_awesome_flutter: ^10.5.0
+  carousel_slider:
+  google_fonts:
+  shimmer:
+  animated_background:
+  cupertino_icons: ^1.0.8
+  awesome_dialog:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/images/project_placeholder.png
+    - assets/project_images/
